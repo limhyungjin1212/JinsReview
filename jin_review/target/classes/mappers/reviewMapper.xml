@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhj.mapper.ReviewMapper">
+	<!-- 댓글 작성 -->
+	<insert id="repWrite">
+		insert into review(pno,content,writer,rate,rev_subject)
+		values (#{pno},#{content},#{writer},#{rate},#{rev_subject})
+	</insert>
+
+	<!-- 댓글 목록 조회 -->
+	<select id="repList" resultType="com.lhj.model.ReviewVO">
+		select * from review where
+		pno = #{pno}
+	</select>
+
+	<!-- 댓글 수정  -->
+	<update id="repModify">
+		update review set
+		rev_subject = #{rev_subject},
+		content=#{content} ,
+		rate = #{rate}
+		where rno =#{rno}
+	</update>
+	<!-- 댓글 삭제  -->
+	<delete id="repDel">
+		delete from review where rno=#{rno}
+	</delete>
+
+	<!--댓글 상세보기  -->
+	<select id="revDetail" resultType="com.lhj.model.ReviewVO">
+		select rev.*,pb.* from review as rev join product_board pb on rev.pno = pb.pno where rev.rno=#{rno};
+	</select>
+
+	<!--댓글 수정에서   이미지 불러오기 -->
+	<select id="revFileDetail" resultType="com.lhj.model.ReviewVO">
+		select filename as fn from review_attach where rno=#{rno};
+	</select>
+	<!-- 게시판에 각 댓글의 첨부파일 불러오기  -->
+	<select id="repFileList" resultType="com.lhj.model.ReviewVO">
+		select ra.rno,filename as fn from review_attach ra join review r on ra.rno=r.rno where r.pno=#{pno};  
+	</select>
+	<!-- 댓글 페이징처리  -->
+	<select id="repListPage" resultType="com.lhj.model.ReviewVO">
+		select * from (
+	select R.* , @rownum:=@rownum+1 as rownum from (
+		select 	r.pno,r.rno, r.content, r.rate , r.regdate , r.writer ,r.rev_subject , (select count(helpfulUserId) from helpful where rno = r.rno) as helpful,(select count(*) from review where writer= r.writer) as urCnt
+				from review r left join helpful h on (r.rno = h.rno)  join (select @rownum:=0) as rn 
+						where content like '%%' and r.pno = #{pno} group by r.rno ) 
+                        as R order by R.rno desc)  as C 
+              <![CDATA[
+			where rownum >(#{cri.pageNum}-1) * #{cri.amount} and rownum<= #{cri.amount} * #{cri.pageNum} 
+		]]>
+	</select>
+	
+<sql id="keyword">
+		<if test="keyword != null">
+				where r.rev_subject like concat('%',trim(#{keyword}),'%')
+		</if>
+</sql>
+	<!--메인 페이지 댓글   -->
+	<select id="revListPage" resultType="com.lhj.model.ReviewVO">
+		select * from (
+	select R.* , @rownum:=@rownum+1 as rownum from (
+		select 	r.pno,r.rno, r.content, r.rate , r.regdate , r.writer  ,ra.filename as fn ,r.rev_subject , (select count(helpfulUserId) from helpful where rno = r.rno) as helpful ,p.pname,tu.user_profile as us_pf
+				from review as r left join review_attach as ra on (r.rno = ra.rno) left join product_board as p on (r.pno = p.pno) join tbl_user tu on (r.writer = tu.uname) left join helpful h on (r.rno = h.rno) join (select @rownum:=0) as rn 
+						group by r.rno
+						) 
+                        as R order by R.rno desc) as C 
+                         <![CDATA[
+			where rownum >(#{pageNum}-1) * #{amount} and rownum<= #{amount} * #{pageNum} 
+		]]>
+	</select>
+	
+<sql id="revRegSearch">
+		<if test="cri.date1 != null || cri.date2 !=null" >
+				and r.regdate between #{cri.date1} and #{cri.date2}
+		</if>
+</sql>
+<sql id="revRegSearchkeyword">
+		<if test="cri.keyword != null" >
+				and r.rev_subject like concat('%',trim(#{cri.keyword}),'%')
+		</if>
+</sql>
+	<!-- 마이페이지 나의 댓글   -->
+	<select id="revMyListPage" resultType="com.lhj.model.ReviewVO">
+		select * from (
+	select R.* , @rownum:=@rownum+1 as rownum from (
+		select 	r.pno,r.rno, r.content, r.rate , r.regdate , r.writer ,r.rev_subject , (select count(helpfulUserId) from helpful where rno = r.rno) as helpful,p.pname
+				from review as r left join product_board as p on (r.pno = p.pno) left join helpful h on (r.rno = h.rno)  join (select @rownum:=0) as rn 
+					where r.writer = #{writer}
+						<include refid="revRegSearch"></include>
+						<include refid="revRegSearchkeyword"></include>
+						group by r.rno
+						) 
+                        as R order by R.rno desc) as C 
+                         <![CDATA[
+			where rownum >(#{cri.pageNum}-1) * #{cri.amount} and rownum<= #{cri.amount} * #{cri.pageNum} 
+		]]>
+	</select>
+	
+	<!-- 마이페이지 나의 댓글 첨부파일  -->
+	<select id="revMyFile" resultType="com.lhj.model.ReviewVO">
+		select ra.rno,ra.filename as fn from review r left join review_attach ra on r.rno=ra.rno where writer=#{uname};
+	</select>
+	
+	<!--댓글 총 갯수  -->
+	<select id="revCount" resultType="int">
+		select count(*) from review
+	</select>
+	
+	<!--마이페이지 나의댓글 총 갯수  -->
+	<select id="myRevCount" resultType="int">
+		select count(*) from review where writer = #{wirter}
+	</select>
+	<select id="repCount" resultType="int">
+		select count(*) from review where pno = #{pno}
+	</select>
+	<!--리뷰 게시판 파일 업로드  -->
+	<insert id="revAddAttach">
+		insert into review_attach(filename,rno) values (#{filename},LAST_INSERT_ID())
+	</insert>
+
+	<!--파일 수정시 삭제후 인서트. -->
+	<insert id="replaceAttach">
+		insert into attach(filename,pno) values(#{filename},#{pno})
+	</insert>
+
+
+	<!-- 리뷰 총갯수와 도움이 된수  -->
+	<select id="revCntHelpful">
+	select count(*) as reviewCnt , sum(helpful) as helpful from review where writer = #{writer};
+	</select>
+
+	<!-- 도움이 된 수 증가 -->
+	<insert id="HelpfulAdd">
+		INSERT INTO helpful(rno,helpfulUserId)
+
+SELECT #{rno},#{uname}
+
+FROM dual
+
+WHERE NOT EXISTS (
+
+ SELECT *  FROM helpful
+
+ WHERE  rno =#{rno} and helpfulUserId = #{uname} 
+
+ )
+		
+	</insert>
+	<!-- 도움이 된 수 감소 -->
+	<delete id="Helpfuldis">
+		delete from helpful where helpfulUserId=#{uname} and rno = #{rno};
+	</delete>
+
+	<!-- 리뷰 수정시 파일 삭제  -->
+	<delete id="deleteRevAttach">
+		delete from review_attach where rno = #{rno}
+	</delete>
+
+
+	<!-- 리뷰 수정시 파일 등록  -->
+	<insert id="replaceRevAttach">
+		insert into review_attach(filename,rno) values (#{filename},#{rno})
+	</insert>
+	
+	
+	<!--1주일간 도움이 가장 많은 리뷰  -->
+	<select id="weekReview" resultType="com.lhj.model.ReviewVO">
+		SELECT r.*,ra.filename as fn,max(h.helpCount),tu.user_profile as us_pf 
+		FROM review r join (select rno,count(helpfulUserId) as helpCount from helpful group by rno) h on r.rno=h.rno
+		 left join review_attach ra on r.rno =ra.rno join tbl_user tu on r.writer = tu.uname
+		WHERE r.regdate BETWEEN DATE_ADD(NOW(),INTERVAL -1 week) AND NOW()
+	</select>
+	
+	<!-- 리뷰마다 도움이 된 helpID  -->
+	<select id="revHelpfulList" resultType="String">
+		select helpfulUserId as helpfulId from helpful where rno =#{rno};
+	</select>
+	
+	<!--메인페이지 리뷰 사진 가져오기  -->
+	<select id="mainRevGetAttach" resultType="com.lhj.model.ReviewVO">
+		select r.writer,ra.filename as fn,p.pname,p.pno from review r join review_attach ra on r.rno=ra.rno join product_board p on r.pno=p.pno order by rand() limit 1;
+	</select>
+	
+	<!-- 리뷰의 사진 클릭시 전부다 가져오기  -->
+	<select id="revAttach" resultType="com.lhj.model.ReviewVO">
+		select filename as fn from review_attach where rno = #{rno};	
+	</select>
+	
+</mapper>

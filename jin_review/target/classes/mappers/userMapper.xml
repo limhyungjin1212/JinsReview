@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhj.mapper.UserMapper">
+
+	<select resultType="com.lhj.model.UserVO" id="login">
+		select uid,upw, uname from tbl_user where uid = #{uid} and upw = #{upw}
+	</select>
+
+	<insert id="join" >
+		insert into tbl_user(uid,upw,uname,umail,gender) values(#{uid},#{upw},#{uname},#{umail},#{gender})
+	</insert>
+
+	<!-- 닉네임 중복 검사 -->
+	<select id="nameCheck" resultType="int">
+		select count(*) from tbl_user where uname=#{uname}
+	</select>
+	<!-- id 중복 검사 -->
+	<select id="idCheck" resultType="int">
+		select count(*) from tbl_user where uid=#{uid}
+	</select>
+	
+	<!-- 로그인유지 -->
+	
+	<update id="keepLogin">
+		update tbl_user set sessionkey = #{sessionId} ,sessionlimit = #{next} where uid = #{uid}
+	</update>
+	
+	<select id="checkUserWithSessionKey" resultType="com.lhj.model.UserVO">
+		select * from tbl_user where sessionkey = #{value} and sessionlimit > now()
+	</select>
+	
+	<!--유저의 정보  -->
+	<select id="userDetail" resultType="com.lhj.model.UserVO">
+	select uid,uname,umail,gender,regdate,user_profile as file,user_info from tbl_user where uname = #{uname};
+	</select>
+	
+	
+	<!--follow 신청  -->
+	<insert id="follow">
+		insert into user_follow(id,follow) values(#{myname},#{uname})
+	</insert>	
+		<!--follow 해제-->
+	<delete id="unfollow">
+		delete from user_follow where id=#{myname} and follow =#{uname}
+	</delete>	
+	<!--팔로우 목록  -->
+	<select id="followList" resultType="com.lhj.model.UserVO">
+		select uf.follow,(select uname from tbl_user where uid = uf.follow) as uname  from tbl_user u left join  user_follow uf on(u.uid=uf.id) where  u.uid=#{uid};
+	</select>
+	
+		<!--팔로워 목록  -->
+	<select id="followerList" resultType="com.lhj.model.UserVO">
+		select uf.id as follower, tu.uname,tu.user_profile as file, (select count(id) from user_follow where follow = uf.id) as ffcnt, (select count(rno) from review where writer=tu.uname) as frcnt    from user_follow uf join tbl_user tu on (uf.id = tu.uid) where follow=#{uid};
+	</select>
+	
+	
+	<!--관리자 페이지 회원 목록  -->
+	<select id="userList" resultType="com.lhj.model.UserVO">
+		select * from 
+		(select *,@rownum:=@rownum+1 as rownum 
+	from tbl_user as tu join (select @rownum:=0) as rn order by regdate desc) as T 
+     <![CDATA[
+   		where rownum >(#{pageNum}-1) * #{amount} and rownum<= #{amount} * #{pageNum} 
+		]]>
+	</select>
+	
+	<!-- 유저의 총 cnt  -->
+	<select id="userCnt" resultType="int">
+		select count(*) from tbl_user
+	</select>
+	
+	<!--유저 프로필 사진 update  -->
+	<update id="user_update">
+		update tbl_user set 
+		user_profile = #{file} ,
+		 user_info = #{user_info} 
+		 where uid=#{uid}
+	</update>
+	
+	
+	<!-- 유저 아이디 찾기  -->
+	<select id="userIdFind" resultType="com.lhj.model.UserVO">
+		select uid from tbl_user where umail=#{umail} and uname=#{uname}
+	</select>
+	<!-- 유저 비밀번호 찾기  -->
+	<select id="userPwFind" resultType="com.lhj.model.UserVO">
+		select upw from tbl_user where umail=#{umail} and uid=#{uid} 
+	</select>
+	
+	
+</mapper>
