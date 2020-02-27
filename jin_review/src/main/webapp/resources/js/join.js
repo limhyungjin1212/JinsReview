@@ -66,14 +66,12 @@ $(document).ready(function(){
 	var EcheckNum = 0;	
 	
 	$("#emailCheck").hide();
-	$("#idchkBtn").hide();
+	
+	
 	
 		$("#idchkBtn").on("click",function(){
 			var uid = $("#uid").val();
-			if(uid == ""){
-				alert("아이디를 입력해주세요.");
-				return false;
-			}
+			
 			$.ajax({
 				url : "idCheck",
 				data : "uid="+uid,
@@ -82,12 +80,13 @@ $(document).ready(function(){
 				success : function(data) {
 					console.log(data.length);
 					if(data == 0){
-						alert("사용가능한 아이디 입니다.");
 						if(uid.length < 8 || uid.length >20 ){
+							alert("id는 8자이상 20자 이하로 입력하셔야 합니다.");
 							$("#idcheck").text("id는 8자이상 20자 이하로 입력하셔야 합니다.").css("color","red");
 							$("#uid").focus();
 						} else{
-							$("#idcheck").text("멋진 아이디네요!").css("color","green");
+							alert("사용가능한 아이디 입니다.");
+							$("#idcheck").text("사용 가능 한 아이디 입니다!").css("color","green");
 						}
 						
 					} else{
@@ -99,8 +98,10 @@ $(document).ready(function(){
 			});
 		});
 
-		$("#uid").on("blur",function(){
+		$("#uid").on("keyup",function(){
+			
 			var uid = $(this).val();
+			
 			if(uid == ""){
 				return false;
 			}
@@ -108,8 +109,9 @@ $(document).ready(function(){
 				$("#idcheck").text("id는 8자이상 20자 이하로 입력하셔야 합니다.").css("color","red");
 				$("#uid").focus();
 			} else{
-				$("#idcheck").text("멋진 아이디네요!").css("color","green");
-				$("#idchkBtn").show();
+				$("#idchkBtn").attr("disabled",false);
+				$("#idcheck").text("중복 확인 버튼을 클릭 하세요").css("color","green");
+		
 			}
 			
 		}); //uname blur end
@@ -154,14 +156,17 @@ $(document).ready(function(){
 				console.log(idCheck);
 				console.log(uid);
 				alert("id양식에 맞게 작성");
+				$("#uid").focus();
 				return false;
 			}
 			if(nameCheckBox != "아주 멋진 닉네임 입니다.!" ){
 				alert("name양식에 맞게 작성");
+				$("#uname").focus();
 				return false;
 			}
 			if(pwcheck != "비밀번호 사용 가능합니다."){
 				alert("비번 양식에 맞게 작성");
+				$("#upw").focus();
 				return false;
 			}
 			
@@ -178,7 +183,7 @@ $(document).ready(function(){
 			}
 		});
 		
-			$("#upw").on("blur",	function() {
+			$("#upw").on("keyup",	function() {
 				var pattern_num = /[0-9]/; // 숫자
 				var pattern_eng = /[a-zA-Z]/; // 문자
 				var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
@@ -246,6 +251,7 @@ $(document).ready(function(){
 						
 						if(ecn == EcheckNum){
 							alert("인증 완료");
+							$("#emailCheckSuccess").text("본인 인증이 완료 되었습니다.").css("color","green");
 							$("#ectrue").val("1");
 						} else{
 							alert("인증실패 . 다시확인해주세요");

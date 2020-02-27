@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="resources/js/join.js?ver=57"></script>
+<script src="resources/js/join.js?ver=59"></script>
 </head>
 <body>
 
@@ -35,7 +35,7 @@
 				<td><input type="text" id="uid" name="uid" class="form-control" required> 
 				<span id="idcheck">id는 8자이상 12자 이하로 입력하셔야
 						합니다</span>
-				<button type="button" id="idchkBtn" class="btn btn-info">아이디 중복 확인</button>
+				<button type="button" id="idchkBtn" class="btn btn-info" disabled="disabled">아이디 중복 확인</button>
 				</td>
 			</tr>
 			<tr>
@@ -73,6 +73,7 @@
 				<td>
 					<input type="text" id="emailCheckNum"  class="form-control" >
 					<input type="button" id="emailCheckBtn"  class="btn btn-outline-success" value="인증번호 확인">
+					<span id="emailCheckSuccess"></span>
 					<input type="hidden" id="ectrue" >
 				</td>
 			</tr>
