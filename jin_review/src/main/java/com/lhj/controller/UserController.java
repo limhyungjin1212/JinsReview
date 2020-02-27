@@ -170,7 +170,7 @@ public class UserController {
 					break;
 				}
 			}
-			messageHelper.setText(("<h1>인증번호 :" + checkNum + " </h1>")); // 내용
+			messageHelper.setText(("인증번호 :" + checkNum)); // 내용
 			messageHelper.setTo(umail); // 받는사람
 			mailSender.send(message);
 

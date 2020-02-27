@@ -20,6 +20,7 @@
 					<div id="updateDiv">
 					
 					<span id="up_rate">
+					${rv.rno }
 					${rv.rate }
 					 	<c:forEach begin="1" end="${rv.rate }" >
 							<i class='fas fa-star' style='color :#99ccff;'></i>
@@ -39,10 +40,10 @@
 					<div id="rev_up_file">
 						<h1>${rvd.pno }</h1>
 							<c:forEach items="${rfd}" var="rfd">
-							<div>
-							<img alt="" style="width:150px; height:150px;" src="displayFile?fileName=${rfd.fn }">
-							<small data-src="${rfd.fn }">X</small>
-							</div>
+								<div>
+									<img alt="" style="width:150px; height:150px;" src="displayFile?fileName=${rfd.fn }">
+									<small data-src="${rfd.fn }">X</small>
+								</div>
 							</c:forEach>
 					
 					<div>

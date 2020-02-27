@@ -95,7 +95,7 @@
 							</when>
 							<otherwise>
 							  WHERE p.regdate BETWEEN DATE_ADD(NOW(),INTERVAL -2 week) AND NOW() 
-							  or (select count(rno) from review where pno = p.pno) > 5
+							  or (select count(rno) from review where pno = p.pno) > 10
 						group by p.pno order by rand()
 							</otherwise>
 						</choose>
@@ -115,6 +115,9 @@
 		insert into attach(filename,pno) values(#{filename},#{pno})
 	</insert>
 	
-	
+		<!-- 게시판 삭제시 그 게시판의 댓글도 삭제 -->
+	<delete id="proRepDel">
+		delete from review where pno=#{pno}
+	</delete>
 	
 </mapper>

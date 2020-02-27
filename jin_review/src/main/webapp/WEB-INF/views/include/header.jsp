@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
 #navbar a {
-	color: black;
+	color: #99ccff;
 }
 .uinfo {
 	color: DodgerBlue;

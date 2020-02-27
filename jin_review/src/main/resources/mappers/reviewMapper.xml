@@ -28,6 +28,7 @@
 		delete from review where rno=#{rno}
 	</delete>
 
+	
 	<!--댓글 상세보기  -->
 	<select id="revDetail" resultType="com.lhj.model.ReviewVO">
 		select rev.*,pb.* from review as rev join product_board pb on rev.pno = pb.pno where rev.rno=#{rno};

@@ -37,5 +37,8 @@ public interface BoardMapper {
 	
 	//검색 리스트
 	
+	//게시판 삭제시 댓글도 삭제
+	public void deleteRep(int pno) throws Exception;
+	
 	
 }

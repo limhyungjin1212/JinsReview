@@ -88,4 +88,9 @@ public class BoardMapperImpl implements BoardMapper {
 			session.insert(namespace+".replaceAttach",param);
 		}
 
+		@Override
+		public void deleteRep(int pno) throws Exception {
+			session.delete(namespace+".proRepDel",pno);
+		}
+
 }

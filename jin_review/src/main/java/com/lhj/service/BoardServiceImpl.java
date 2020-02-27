@@ -63,6 +63,7 @@ public class BoardServiceImpl implements BoardService {
 	public void boardDelete(int pno) throws Exception {
 		bm.deleteAttach(pno);
 		bm.boardDelete(pno);
+		bm.deleteRep(pno);
 	}
 
 	@Override

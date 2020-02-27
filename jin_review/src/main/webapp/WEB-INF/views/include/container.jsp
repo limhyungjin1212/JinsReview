@@ -30,7 +30,7 @@
 	<c:forEach items="${plist }" var="pVO">
 		<div class="col-lg-3 col-md-6 mb-4">
 		<div class="card h-100" id="attach">
-			<a href="detail?pno=${pVO.pno }&pageNum=${page.cri.pageNum}&keyword=${page.cri.keyword}"><img class="img-thumbnail" src='displayFile?fileName=${pVO.fn }' height="" alt="not image"></a>
+			<a href="detail?pno=${pVO.pno }&pageNum=${page.cri.pageNum}&keyword=${page.cri.keyword}"><img class="img-thumbnail" src='displayFile?fileName=${pVO.fn }' style="width:100%; height:150px " alt="not image"></a>
 			<div class="card-body">
 				<h4 class="card-title"><a href="detail?pno=${pVO.pno }&pageNum=${page.cri.pageNum}&keyword=${page.cri.keyword}">${pVO.pname }</a></h4>
 				<c:forEach  begin="1" end="${pVO.rate }" var="rateAvg">
@@ -61,20 +61,25 @@
 	<div class="col-md-8 ">
 	<h1>주간 리뷰</h1>
 		<div class="container p-3 my-3 bg-primary text-white">
-		<h1>${weekReview.rev_subject }</h1>
-				<a href="userDetail?uname=${weekReview.writer }">
+		<div class="row">
+		<div class="col-4">
+			<a href="userDetail?uname=${weekReview.writer }">
 					<img class="img-thumbnail" style="max-width:100px;" src='displayFile?fileName=${weekReview.us_pf }' alt="not image">
 				</a>
 		<h3>${weekReview.writer }</h3>
-		
-		<div>
-			${weekReview.content }
 		</div>
-		<div data-rno="${weekReview.rno }">
-		<a href='#' id='oriImg' data-toggle='modal' data-target='#myImgModal'>
-			<img style="max-width:60%;" class="img-thumbnail" src="displayFile?fileName=${weekReview.fn }">
-			</a>
-		</div>
+		<div class="col-8">
+			<h1>${weekReview.rev_subject }</h1>
+				<div>
+				${weekReview.content }
+				</div>
+					<div data-rno="${weekReview.rno }">
+						<a href='#' id='oriImg' data-toggle='modal' data-target='#myImgModal'>
+							<img style="max-width:150px;" class="img-thumbnail" src="displayFile?fileName=${weekReview.fn }">
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	
@@ -145,7 +150,7 @@
 			</div>
 			<div data-rno="${reviewVO.rno }">
 			<c:if test="${reviewVO.fn != null }">
-				<a href='#' id='oriImg' data-toggle='modal' data-target='#myImgModal'><img class="img-thumbnail" style="width:100%;" src='displayFile?fileName=${reviewVO.fn }' alt="not image"></a>
+				<a href='#' id='oriImg' data-toggle='modal' data-target='#myImgModal'><img class="img-thumbnail" style="min-width:250px;" src='displayFile?fileName=${reviewVO.fn }' alt="not image"></a>
 			</c:if>
 			</div>
 			<div class="card-body">
@@ -247,7 +252,7 @@ var pageNum = ${page.cri.pageNum};
 					  str +="사진만 나온 것입니다";
 				} 
 				if(data.fn != null){
-					str += "<div data-rno='"+data.rno+"'><a href='#' id='oriImg' data-toggle='modal' data-target='#myImgModal'><img class='img-thumbnail' style='max-width:300px;'  src='displayFile?fileName="+data.fn+"' alt='not image'></a></div>";
+					str += "<div data-rno='"+data.rno+"'><a href='#' id='oriImg' data-toggle='modal' data-target='#myImgModal'><img class='img-thumbnail' style='min-width:250px;'  src='displayFile?fileName="+data.fn+"' alt='not image'></a></div>";
 				}		
 				str += "<div class='card-body'><h4 class='card-title'>"+data.pname+"</h4>";
 				for(var i =1; i<=data.rate;i++){
