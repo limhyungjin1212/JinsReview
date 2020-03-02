@@ -27,7 +27,7 @@
 
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg
-			value="D:\\01-학생용폴더\\임형진\\upload">
+			value="E:\\upload">
 		</beans:constructor-arg>
 	</beans:bean>
 

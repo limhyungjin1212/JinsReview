@@ -120,4 +120,39 @@
 		delete from review where pno=#{pno}
 	</delete>
 	
+	<!-- 보드 디테일 추가  -->
+	<insert id="boardAddDetail">
+	
+		<choose>
+			<when test="pevent_file != null">
+				insert into product_board_detail 
+		values(LAST_INSERT_ID(),#{openMon},#{closeMon},#{openTue},#{closeTue},
+				#{openWed},#{closeWed},#{openThu},#{closeThu},#{openFri},#{closeFri},
+				#{openSat},#{closeSat},#{openSun},#{closeSun},#{pevent},#{pevent_info},#{pevent_file})
+			</when>
+			<when test="pevent != null and pevent!='' ">
+				insert into product_board_detail(
+					pno,openMon,closeMon,openTue,closeTue,openWed,closeWed,openThu,closeThu
+					,openFri,closeFri,openSat,closeSat,openSun,closeSun,pevent,pevent_info
+				) 
+		values(LAST_INSERT_ID(),#{openMon},#{closeMon},#{openTue},#{closeTue},
+				#{openWed},#{closeWed},#{openThu},#{closeThu},#{openFri},#{closeFri},
+				#{openSat},#{closeSat},#{openSun},#{closeSun},#{pevent},#{pevent_info})
+			</when>
+			<otherwise>
+			insert into product_board_detail(pno,openMon,closeMon
+			,openTue,closeTue,openWed,closeWed,openThu,closeThu
+			,openFri,closeFri,openSat,closeSat,openSun,closeSun
+			) 
+		values(LAST_INSERT_ID(),#{openMon},#{closeMon},#{openTue},#{closeTue},
+				#{openWed},#{closeWed},#{openThu},#{closeThu},#{openFri},#{closeFri},
+				#{openSat},#{closeSat},#{openSun},#{closeSun}	)
+			</otherwise>
+		</choose>
+			
+	</insert>
+	
+	
+	
+	
 </mapper>

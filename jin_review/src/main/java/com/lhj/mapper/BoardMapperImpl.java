@@ -55,7 +55,7 @@ public class BoardMapperImpl implements BoardMapper {
 		return session.selectOne(namespace+".boardDetail",pno);
 	}
 	
-	//게시판 파일 업로드
+	//寃뚯떆�뙋 �뙆�씪 �뾽濡쒕뱶
 		@Override
 		public void addAttach(String filename) throws Exception {
 			session.insert(namespace+".addAttach",filename);
@@ -91,6 +91,11 @@ public class BoardMapperImpl implements BoardMapper {
 		@Override
 		public void deleteRep(int pno) throws Exception {
 			session.delete(namespace+".proRepDel",pno);
+		}
+
+		@Override
+		public void boardAddDetail(BoardVO board) throws Exception {
+			session.insert(namespace+".boardAddDetail",board);
 		}
 
 }

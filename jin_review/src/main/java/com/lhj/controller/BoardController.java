@@ -48,22 +48,22 @@ public class BoardController {
 		
 		PageVO rpv = new PageVO(cri, reviewService.revCount());
 		List revlist = new ArrayList(); 
-		revlist = reviewService.revListPage(cri); //리뷰 리스트
+		revlist = reviewService.revListPage(cri); //由щ럭 由ъ뒪�듃
 		
 		List plist = new ArrayList();
 		cri.setAmount(4);
-		plist = boardService.boardListAttach(cri); //상품 리스트 4개씩.
+		plist = boardService.boardListAttach(cri); //�긽�뭹 由ъ뒪�듃 4媛쒖뵫.
 		
 		cri.setAmount(10);
 		PageVO pv = new PageVO(cri, boardService.boardCount(cri));
 		List adminList = new ArrayList();
-		adminList = boardService.boardListPage(cri); //관리자 페이지 리스트
+		adminList = boardService.boardListPage(cri); //愿�由ъ옄 �럹�씠吏� 由ъ뒪�듃
 		
-		model.addAttribute("revlist", revlist); //댓글리스트
-		model.addAttribute("plist", plist); //상품 리스트
-		model.addAttribute("adminList", adminList); //관리자 리스트
-		ReviewVO wrv = reviewService.weekReview(); //주간 리뷰 
-		wrv.setFn(wrv.getFn().substring(0,12)+wrv.getFn().substring(14)); //주간리뷰 원본파일로.
+		model.addAttribute("revlist", revlist); //�뙎湲�由ъ뒪�듃
+		model.addAttribute("plist", plist); //�긽�뭹 由ъ뒪�듃
+		model.addAttribute("adminList", adminList); //愿�由ъ옄 由ъ뒪�듃
+		ReviewVO wrv = reviewService.weekReview(); //二쇨컙 由щ럭 
+		wrv.setFn(wrv.getFn().substring(0,12)+wrv.getFn().substring(14)); //二쇨컙由щ럭 �썝蹂명뙆�씪濡�.
 		model.addAttribute("weekReview",wrv);
 		
 		model.addAttribute("rpage",rpv);
@@ -103,7 +103,8 @@ public class BoardController {
 	public String registerPost(BoardVO board , RedirectAttributes rttr) throws Exception{
 		
 		logger.info("registerPost.."+board);
-		logger.info("파일"+board.getFiles());
+		logger.info("�뙆�씪"+board.getFiles());
+		logger.info("pevent="+board.getPevent());
 		boardService.boardWrite(board);
 		rttr.addFlashAttribute("msg","wsuccess");
 		
@@ -136,7 +137,7 @@ public class BoardController {
 		
 		ResponseEntity<Map<String, Object>> entity = null;
 		logger.info("pno="+pno);
-		logger.info("상세보기"+boardService.getAttach(pno));
+		logger.info("�긽�꽭蹂닿린"+boardService.getAttach(pno));
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		List boardAttachList = boardService.getAttach(pno);
@@ -152,10 +153,10 @@ public class BoardController {
 	@RequestMapping(value="/addRevList" , method = RequestMethod.GET)
 	public List<ReviewVO> addrevlist(@RequestParam int pageNum) throws Exception{
 		
-		logger.info("더보기버튼 왓나요?"+pageNum);
+		logger.info("�뜑蹂닿린踰꾪듉 �솓�굹�슂?"+pageNum);
 		Criteria criteria = new Criteria();
 		criteria.setPageNum(pageNum+1);
-		logger.info("이거는요?"+criteria);
+		logger.info("�씠嫄곕뒗�슂?"+criteria);
 		return reviewService.revListPage(criteria);
 	}
 	
@@ -213,10 +214,10 @@ public class BoardController {
 	@RequestMapping(value="reviewUpdate", method = RequestMethod.GET)
 	public String reviewUpdate(@RequestParam int rno,Model model) throws Exception {
 		
-		logger.info("리뷰 수정으로 옴?"+rno);
+		logger.info("由щ럭 �닔�젙�쑝濡� �샂?"+rno);
 		
 		List revFileDetail = reviewService.revFileDetail(rno);
-		logger.info("리뷰디테일 리스트="+revFileDetail);
+		logger.info("由щ럭�뵒�뀒�씪 由ъ뒪�듃="+revFileDetail);
 		model.addAttribute("rv",reviewService.revDetail(rno));
 		model.addAttribute("rfd",revFileDetail);
 		

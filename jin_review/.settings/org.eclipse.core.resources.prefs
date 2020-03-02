@@ -1,2 +1,7 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/lhj/controller/BoardController.java=UTF-8
+encoding//src/main/java/com/lhj/mapper/BoardMapper.java=UTF-8
+encoding//src/main/java/com/lhj/mapper/BoardMapperImpl.java=UTF-8
+encoding//src/main/java/com/lhj/model/BoardVO.java=UTF-8
+encoding//src/main/java/com/lhj/service/BoardServiceImpl.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/include/container.jsp=UTF-8

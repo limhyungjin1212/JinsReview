@@ -22,12 +22,13 @@ public class BoardServiceImpl implements BoardService {
 		return bm.boardList();
 	}
 
-	//게시판 글쓰기
-	@Transactional //동시에
+	//寃뚯떆�뙋 湲��벐湲�
+	@Transactional //�룞�떆�뿉
 	@Override
 	public void boardWrite(BoardVO board) throws Exception {
 		bm.boardWrite(board);
 		
+		bm.boardAddDetail(board);
 		System.out.println("boardgetfiles"+board.getFiles());
 		String[] files = board.getFiles();
 		if(files == null) {
@@ -36,6 +37,8 @@ public class BoardServiceImpl implements BoardService {
 		for(String filename : files) {
 			bm.addAttach(filename);
 		}
+		
+		
 	}
 
 	@Transactional
@@ -52,8 +55,8 @@ public class BoardServiceImpl implements BoardService {
 			return;
 		}
 		for(String filename : files) {
-			System.out.println("수정시 재등록 파일네임="+filename);
-			System.out.println("수정시 재등록 pno="+pno);
+			System.out.println("�닔�젙�떆 �옱�벑濡� �뙆�씪�꽕�엫="+filename);
+			System.out.println("�닔�젙�떆 �옱�벑濡� pno="+pno);
 			bm.replaceAttach(filename, pno);
 		}
 	}

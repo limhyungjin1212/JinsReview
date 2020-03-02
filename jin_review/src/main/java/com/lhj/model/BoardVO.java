@@ -19,7 +19,123 @@ public class BoardVO {
 	
 	private String[] files;
 	
+	private String openMon,closeMon;
+	private String openTue,closeTue;
+	private String openWed,closeWed;
+	private String openThu,closeThu;
+	private String openFri,closeFri;
+	private String openSat,closeSat;
+	private String openSun,closeSun;
 	
+	private String pevent;
+	private String pevent_file;
+	private String pevent_info;
+	
+	
+	
+	public String getPevent_info() {
+		return pevent_info;
+	}
+	public void setPevent_info(String pevent_info) {
+		this.pevent_info = pevent_info;
+	}
+	public String getPevent() {
+		return pevent;
+	}
+	public void setPevent(String pevent) {
+		this.pevent = pevent;
+	}
+	
+	public String getPevent_file() {
+		return pevent_file;
+	}
+	public void setPevent_file(String pevent_file) {
+		this.pevent_file = pevent_file;
+	}
+	public String getOpenMon() {
+		return openMon;
+	}
+	public void setOpenMon(String openMon) {
+		this.openMon = openMon;
+	}
+	public String getCloseMon() {
+		return closeMon;
+	}
+	public void setCloseMon(String closeMon) {
+		this.closeMon = closeMon;
+	}
+	public String getOpenTue() {
+		return openTue;
+	}
+	public void setOpenTue(String openTue) {
+		this.openTue = openTue;
+	}
+	public String getCloseTue() {
+		return closeTue;
+	}
+	public void setCloseTue(String closeTue) {
+		this.closeTue = closeTue;
+	}
+	public String getOpenWed() {
+		return openWed;
+	}
+	public void setOpenWed(String openWed) {
+		this.openWed = openWed;
+	}
+	public String getCloseWed() {
+		return closeWed;
+	}
+	public void setCloseWed(String closeWed) {
+		this.closeWed = closeWed;
+	}
+	public String getOpenThu() {
+		return openThu;
+	}
+	public void setOpenThu(String openThu) {
+		this.openThu = openThu;
+	}
+	public String getCloseThu() {
+		return closeThu;
+	}
+	public void setCloseThu(String closeThu) {
+		this.closeThu = closeThu;
+	}
+	public String getOpenFri() {
+		return openFri;
+	}
+	public void setOpenFri(String openFri) {
+		this.openFri = openFri;
+	}
+	public String getCloseFri() {
+		return closeFri;
+	}
+	public void setCloseFri(String closeFri) {
+		this.closeFri = closeFri;
+	}
+	public String getOpenSat() {
+		return openSat;
+	}
+	public void setOpenSat(String openSat) {
+		this.openSat = openSat;
+	}
+	public String getCloseSat() {
+		return closeSat;
+	}
+	public void setCloseSat(String closeSat) {
+		this.closeSat = closeSat;
+	}
+	public String getOpenSun() {
+		return openSun;
+	}
+	public void setOpenSun(String openSun) {
+		this.openSun = openSun;
+	}
+	public String getCloseSun() {
+		return closeSun;
+	}
+	public void setCloseSun(String closeSun) {
+		this.closeSun = closeSun;
+	}
 	public int getRcnt() {
 		return rcnt;
 	}
@@ -27,7 +143,7 @@ public class BoardVO {
 		this.rcnt = rcnt;
 	}
 	public double getRate() {
-		return Math.ceil(rate*2)/2; //리뷰 총 평점을 0.5단위로 나타내기 위함
+		return Math.ceil(rate*2)/2; //由щ럭 珥� �룊�젏�쓣 0.5�떒�쐞濡� �굹���궡湲� �쐞�븿
 	}
 	public void setRate(double rate) {
 		this.rate = rate;
@@ -96,8 +212,11 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [pno=" + pno + ", pname=" + pname + ", pcate=" + pcate + ", ptel=" + ptel + ", pinfo=" + pinfo
-				+ ", regdate=" + regdate + ", place=" + place + ", fn=" + fn + ", files=" + Arrays.toString(files)
-				+ "]";
+				+ ", regdate=" + regdate + ", place=" + place + ", fn=" + fn + ", rate=" + rate + ", rcnt=" + rcnt
+				+ ", files=" + Arrays.toString(files) + ", openMon=" + openMon + ", closeMon=" + closeMon + ", openTue="
+				+ openTue + ", closeTue=" + closeTue + ", openWed=" + openWed + ", closeWed=" + closeWed + ", openThu="
+				+ openThu + ", closeThu=" + closeThu + ", openFri=" + openFri + ", closeFri=" + closeFri + ", openSat="
+				+ openSat + ", closeSat=" + closeSat + ", openSun=" + openSun + ", closeSun=" + closeSun + "]";
 	}
 	
 	

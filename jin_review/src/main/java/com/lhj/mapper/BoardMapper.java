@@ -20,25 +20,27 @@ public interface BoardMapper {
 	
 	public BoardVO boardDetail(int pno) throws Exception;
 	
-	//게시판 글 쓰기 할떄 파일 업로드
+	//寃뚯떆�뙋 湲� �벐湲� �븷�뻹 �뙆�씪 �뾽濡쒕뱶
 	public void addAttach(String filename) throws Exception;
 	
-	//게시판 상세보기 파일 불러오기
+	//寃뚯떆�뙋 �긽�꽭蹂닿린 �뙆�씪 遺덈윭�삤湲�
 	public List<String> getAttach(int pno) throws Exception;
 	
-	//메인페이지 이미지랑 글 불러오기
+	//硫붿씤�럹�씠吏� �씠誘몄��옉 湲� 遺덈윭�삤湲�
 	public List<BoardVO> boardListAttach(Criteria cri) throws Exception;
 	
-	//파일 삭제
+	//�뙆�씪 �궘�젣
 	public void deleteAttach(int pno) throws Exception;
 	
-	//파일 등록(수정시)
+	//�뙆�씪 �벑濡�(�닔�젙�떆)
 	public void replaceAttach(String filename , int pno) throws Exception;
 	
-	//검색 리스트
+	//寃��깋 由ъ뒪�듃
 	
-	//게시판 삭제시 댓글도 삭제
+	//寃뚯떆�뙋 �궘�젣�떆 �뙎湲��룄 �궘�젣
 	public void deleteRep(int pno) throws Exception;
 	
+	//디테일 추가
+	public void boardAddDetail(BoardVO board) throws Exception;
 	
 }

@@ -39,7 +39,83 @@ $(".fileDrop").on("dragenter dragover",function(event){
 		event.preventDefault();
 	});
 	
-	$(".fileDrop").on("drop",function(event){
+
+$("#eventfile").change(function(event) {
+	// var files =
+		// event.originalEvent.dataTransfer.files;
+		// //?
+		var file = $("#eventfile")[0].files[0]; // ?
+		var formData = new FormData(); // FormData는
+										// 가상의
+		// form태그
+										// .
+		formData.append("file", file); // 파일을
+										// 추가.
+										// 드래그앤드랍된
+										// 파일을
+										// 담는다.
+
+		$.ajax({
+					url : "uploadAjax",
+					data : formData,
+					dataType : 'text',
+					processData : false,
+					contentType : false,
+					type : "POST",
+
+					success : function(data) {
+						// console.log(data);
+						// alert(data);
+						// alert(checkImageType(data));
+						var str = "";
+						console.log(checkImageType(data));
+						if (checkImageType(data)) {
+							str = "<div>"
+									+ "<a href=displayFile?fileName="
+									+ getImageLink(data)
+									+ "><img style='max-width:400px;' src='displayFile?fileName="
+									+ getImageLink(data)
+									+ "'/>"
+									+ "</a><small data-src="
+									+ data
+									+ ">X</small>"
+									+ "</div>";
+						} else {
+							str = "<div><a href='displayFile?fileName="
+									+ data
+									+ "'>"
+									+ getOriginalName(data)
+									+ "</a>"
+									+ "<small data-src="
+									+ data
+									+ ">X</small></div>";
+						}
+
+						$("#uploadedEventFile").append(str);
+					}
+				});
+
+	});
+
+//small 태그를 클릭
+$("#uploadedEventFile").on("click","small",function(event){
+	var that = $(this);
+	$.ajax({
+		url:"deleteFile",
+		type:"post",
+		data: {fileName:$(this).attr("data-src")},
+		dataType:"text",
+		success:function(result){
+			if(result == 'deleted'){
+				alert("deleted");
+				that.parent("div").remove();
+			}
+		}
+	})
+	
+	
+}); //small click end
+$(".fileDrop").on("drop",function(event){
 		event.preventDefault();
 		var files = event.originalEvent.dataTransfer.files; 
 		var file = files[0]; 
@@ -100,7 +176,9 @@ $(".fileDrop").on("dragenter dragover",function(event){
 		$("#uploadedList small").each(function(index){
 			str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("data-src")+"' > ";
 		});
-		
+		$("#uploadedEventFile small").each(function(){
+			str += "<input type='hidden' name='pevent_file' value='"+$(this).attr("data-src")+"' > ";
+		});
 		that.append(str);
 		that.get(0).submit();
 		
@@ -127,6 +205,10 @@ $(".fileDrop").on("dragenter dragover",function(event){
           center: {lat: 35.5528, lng: 129.3309}, //지도 초기화면 중앙의 좌표
           zoom: 15 //확대의 정도
         });
+        
+        var card = document.getElementById('pac-card');
+        var input = document.getElementById('pac-input');
+        
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
         var autocomplete = new google.maps.places.Autocomplete(input);
