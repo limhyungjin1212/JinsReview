@@ -94,6 +94,21 @@ public class BoardServiceImpl implements BoardService {
 		return bm.boardListAttach(cri);
 	}
 
+	@Override
+	public List<BoardVO> peventList(Criteria cri) throws Exception {
+		return bm.peventList(cri);
+	}
+
+	@Override
+	public int peventCnt() throws Exception {
+		return bm.peventCnt();
+	}
+
+	@Override
+	public BoardVO peventIng() throws Exception {
+		return bm.peventIng();
+	}
+
 	
 	
 	

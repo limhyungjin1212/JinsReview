@@ -43,4 +43,12 @@ public interface BoardMapper {
 	//디테일 추가
 	public void boardAddDetail(BoardVO board) throws Exception;
 	
+	//peventlist
+	public List<BoardVO> peventList(Criteria cri) throws Exception;
+	
+	//peventlist 갯수
+	public int peventCnt() throws Exception;
+	
+	//pevent중 현재날짜에 진행하는 이벤트 하나 불러오기
+	public BoardVO peventIng() throws Exception;
 }

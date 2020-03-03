@@ -469,13 +469,19 @@
 	연락처 : <input type="text" class="form-control" name="ptel"> <br>
 	<div>
 		<h1>진행하는 이벤트.</h1>
-		<input type="text" name="pevent" class="form-control" placeholder="진행하는 이벤트 제목">
-		<textarea class="form-control" rows="10" cols="20" name="pevent_info"></textarea> <br>
-		<input type="file" class="form-control" id="eventfile" >
-		<div id="uploadedEventFile">
-		
+			<input type="text" name="pevent" class="form-control" placeholder="진행하는 이벤트 제목">
+			<textarea class="form-control" rows="10" cols="20" name="pevent_info"></textarea> <br>
+			<div class="form-row">
+				<label class="control-label" for="datepicker1">시작 일자 :</label>
+				<input type="text" id="datepicker1" class="form-control col-lg-2" name="pevent_startDay"> ~
+				
+				<label class="control-label" for="datepicker2">끝나는 일자 :</label>
+				 <input type="text" id="datepicker2" class="form-control col-lg-2" name="pevent_endDay">
+			</div>
+			<input type="file" class="form-control" id="eventfile" >
+			<div id="uploadedEventFile">
+			
 		</div>
-		
 	</div>
 	
 	<div class="fileDrop">파일을 드래그앤 드랍</div>
@@ -486,6 +492,6 @@
 	</div>
 </form>
 </div>
-<script type="text/javascript" src="resources/js/register.js?ver=125"></script>
+<script type="text/javascript" src="resources/js/register.js?ver=127"></script>
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBggZ8qinjU9aNYY_vCqfzv_C7PBA5v680&libraries=places&callback=initMap"
         async defer></script>

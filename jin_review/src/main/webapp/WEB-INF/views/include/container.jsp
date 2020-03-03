@@ -30,7 +30,9 @@
 	<c:forEach items="${plist }" var="pVO">
 		<div class="col-lg-3 col-md-6 mb-4">
 		<div class="card h-100" id="attach">
+			<c:if test="${pVO.fn != null }">
 			<a href="detail?pno=${pVO.pno }&pageNum=${page.cri.pageNum}&keyword=${page.cri.keyword}"><img class="img-thumbnail" src='displayFile?fileName=${pVO.fn }' style="width:100%; height:150px " alt="not image"></a>
+			</c:if>
 			<div class="card-body">
 				<h4 class="card-title"><a href="detail?pno=${pVO.pno }&pageNum=${page.cri.pageNum}&keyword=${page.cri.keyword}">${pVO.pname }</a></h4>
 				<c:forEach  begin="1" end="${pVO.rate }" var="rateAvg">
@@ -84,10 +86,10 @@
 	</div>
 	
 	<div class="col-md-4 ">
-		<h3>이벤트</h3>
-		<table>
-			
-		</table>
+		<h3>오늘의 이벤트</h3>
+		
+		${peventing.pevent }
+		<a href="detail?pno=${peventing.pno }"><img src="displayFile?fileName=${peventing.pevent_file }"></a>
 	</div>
 </div>
 <!-- Page Features -->

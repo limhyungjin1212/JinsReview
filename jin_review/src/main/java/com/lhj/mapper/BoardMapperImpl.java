@@ -98,4 +98,20 @@ public class BoardMapperImpl implements BoardMapper {
 			session.insert(namespace+".boardAddDetail",board);
 		}
 
+		@Override
+		public List<BoardVO> peventList(Criteria cri) throws Exception {
+			List list = session.selectList(namespace+".peventList",cri);
+			return list;
+		}
+
+		@Override
+		public int peventCnt() throws Exception {
+			return session.selectOne(namespace+".peventCnt");
+		}
+
+		@Override
+		public BoardVO peventIng() throws Exception {
+			return session.selectOne(namespace+".peventing");
+		}
+
 }

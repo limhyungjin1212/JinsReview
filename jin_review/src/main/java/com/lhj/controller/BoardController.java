@@ -68,7 +68,8 @@ public class BoardController {
 		
 		model.addAttribute("rpage",rpv);
 		model.addAttribute("page",pv);
-		
+		model.addAttribute("peventing",boardService.peventIng());
+		logger.info("boardService.peventIng()="+boardService.peventIng());
 		model.addAttribute("mrga",reviewService.mainRevGetAttach());
 		req.setAttribute("uri", req.getRequestURI().substring(req.getContextPath().length()));
 		
@@ -228,9 +229,14 @@ public class BoardController {
 
 	
 	@RequestMapping(value="eventList", method = RequestMethod.GET)
-	public String eventList(HttpServletRequest req,Model model) throws Exception {
+	public String eventList(HttpServletRequest req, Criteria cri,Model model) throws Exception {
 		req.setAttribute("uri", req.getRequestURI().substring(req.getContextPath().length()));
 		logger.info("eventList");
+		PageVO pv = new PageVO(cri, boardService.peventCnt());
+		List peventList = boardService.peventList(cri);
+		
+		model.addAttribute("peventList",peventList);
+		
 		return "main";
 	}
 	
@@ -249,6 +255,8 @@ public class BoardController {
 		logger.info("suggestions");
 		return "main";
 	}
+	
+	
 	
 	
 	

@@ -159,13 +159,28 @@
 	</div>
 
 	<div class="bestReviewBox"></div>
+	<div class="row">
 	<div class="col-md-6">
 		<div id="map"></div>
 	</div>
 	<div class="col-md-6">
-		<div>영업시간 :</div>
+		<p>영업시간</p> 
+			<p>월요일 : ${detail.openMon } ~ ${detail.closeMon }</p>
+			<p>화요일 : ${detail.openTue } ~ ${detail.closeTue }</p>
+			<p>수요일 : ${detail.openWed } ~ ${detail.closeWed }</p>
+			<p>목요일 : ${detail.openThu } ~ ${detail.closeThu }</p>
+			<p>금요일 : ${detail.openFri } ~ ${detail.closeFri }</p>
+			<p>토요일 : ${detail.openSat } ~ ${detail.closeSat }</p>
+			<p>일요일 : ${detail.openSun } ~ ${detail.closeSun }</p>
+			
 	</div>
-
+	<div>
+		<h3>진행하는 이벤트</h3>
+		${detail.pevent }
+		<img src="displayFile?fileName=${detail.pevent_file}">
+		${detail.pevent_info }
+	</div>
+	</div>
 
 	<div class="form-group">
 		<label for="comment">Comment:</label>

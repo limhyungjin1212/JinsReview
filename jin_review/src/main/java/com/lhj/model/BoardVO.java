@@ -31,8 +31,31 @@ public class BoardVO {
 	private String pevent_file;
 	private String pevent_info;
 	
+	private String pef;
+	
+	private String pevent_startDay;
+	private String pevent_endDay;
 	
 	
+	
+	public String getPevent_startDay() {
+		return pevent_startDay;
+	}
+	public void setPevent_startDay(String pevent_startDay) {
+		this.pevent_startDay = pevent_startDay;
+	}
+	public String getPevent_endDay() {
+		return pevent_endDay;
+	}
+	public void setPevent_endDay(String pevent_endDay) {
+		this.pevent_endDay = pevent_endDay;
+	}
+	public String getPef() {
+		return pef;
+	}
+	public void setPef(String pef) {
+		this.pef = pef;
+	}
 	public String getPevent_info() {
 		return pevent_info;
 	}
@@ -56,7 +79,7 @@ public class BoardVO {
 		return openMon;
 	}
 	public void setOpenMon(String openMon) {
-		this.openMon = openMon;
+		this.openMon = openMon.substring(0,5);
 	}
 	public String getCloseMon() {
 		return closeMon;
@@ -200,6 +223,7 @@ public class BoardVO {
 	
 	
 	public String getFn() {
+		System.out.println(fn+"이것은 fn");
 		String front = fn.substring(0,12);
 		String end = fn.substring(14);
 		System.out.println(front+end);

@@ -7,32 +7,39 @@ import com.lhj.model.Criteria;
 
 public interface BoardService {
 	
-	//리스트
+	//由ъ뒪�듃
 	public List<BoardVO> boardList() throws Exception;
 
-	//글 작성
+	//湲� �옉�꽦
 	public void boardWrite(BoardVO board) throws Exception;
 
-	//글 수정
+	//湲� �닔�젙
 	public void boardUpdate(BoardVO board) throws Exception;
 
-	// 글 삭제
+	// 湲� �궘�젣
 	public void boardDelete(int pno) throws Exception;
 
-	//페이징 처리한 리스트
+	//�럹�씠吏� 泥섎━�븳 由ъ뒪�듃
 	public List<BoardVO> boardListPage(Criteria cri) throws Exception;
 
-	//전체 갯수
+	//�쟾泥� 媛��닔
 	public int boardCount(Criteria cri) throws Exception;
 	
-	//상세보기
+	//�긽�꽭蹂닿린
 	public BoardVO boardDetail(int pno) throws Exception;
 	
-	//게시판 상세보기 파일 불러오기
+	//寃뚯떆�뙋 �긽�꽭蹂닿린 �뙆�씪 遺덈윭�삤湲�
 	public List<String> getAttach(int pno) throws Exception;
 	
-	//메인페이지 이미지랑 글 불러오기
+	//硫붿씤�럹�씠吏� �씠誘몄��옉 湲� 遺덈윭�삤湲�
 	public List<BoardVO> boardListAttach(Criteria cri) throws Exception;
 	
+	//pventList
+	public List<BoardVO> peventList(Criteria cri) throws Exception;
+	
+	//peventlist 갯수
+		public int peventCnt() throws Exception;
 		
+		//pevent중 현재날짜에 진행하는 이벤트 하나 불러오기
+		public BoardVO peventIng() throws Exception;
 }
