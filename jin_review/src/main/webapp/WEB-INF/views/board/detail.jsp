@@ -187,9 +187,12 @@
 		<textarea rows="5" class="form-control" readonly>${detail.pinfo }</textarea>
 
 		<c:if test="${login.uid eq 'admin' }">
-			<button class="btn-primary"
+			<div align="right">
+			<br>
+			<button class="btn btn-primary"
 				onclick="location.href='update?pno=${detail.pno}'">수정</button>
-			<button onclick="location.href='delete?pno=${detail.pno}'">삭제</button>
+			<button class="btn btn-danger" onclick="location.href='delete?pno=${detail.pno}'">삭제</button>
+			</div>
 		</c:if>
 
 
@@ -384,7 +387,7 @@
 															+ "<span>"+this.content+"</span>";
 													
 													if (loginfo == this.writer) {
-														str2 += "<input type='button' id='rev_up_btn' class='btn btn-outline-info' id='btnUpdate' value='수정'></p></li></div></div>";
+														str2 += "<input type='button' id='rev_up_btn' class='btn btn-outline-info btn-lg' id='btnUpdate' value='수정'></p></li></div></div>";
 													} else {
 														str2 += "<p>리뷰가 도움이 되셧나요?";
 														
