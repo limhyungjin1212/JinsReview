@@ -63,7 +63,10 @@ public class BoardController {
 		model.addAttribute("plist", plist); //�긽�뭹 由ъ뒪�듃
 		model.addAttribute("adminList", adminList); //愿�由ъ옄 由ъ뒪�듃
 		ReviewVO wrv = reviewService.weekReview(); //二쇨컙 由щ럭 
-		wrv.setFn(wrv.getFn().substring(0,12)+wrv.getFn().substring(14)); //二쇨컙由щ럭 �썝蹂명뙆�씪濡�.
+		System.out.println(wrv.getFn());
+		if(wrv.getFn() != null) {
+			wrv.setFn(wrv.getFn().substring(0,12)+wrv.getFn().substring(14)); //二쇨컙由щ럭 �썝蹂명뙆�씪濡�.
+		}
 		model.addAttribute("weekReview",wrv);
 		
 		model.addAttribute("rpage",rpv);

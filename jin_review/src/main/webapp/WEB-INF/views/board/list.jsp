@@ -55,7 +55,6 @@
 					</tr>
 					
 					<tr>
-						<td><a href="register">글쓰기</a></td>
 						<td colspan="4">
 						<c:if test="${page.prev }">
 								<a
@@ -78,6 +77,7 @@
 								<a
 									href="main?pageNum=${page.endPage +1 }&keyword=${page.cri.keyword}">[다ㅁ음]</a>
 							</c:if></td>
+							<td><a href="register">글쓰기</a></td>
 					</tr>
 				</tfoot>
 				<tbody>

@@ -64,16 +64,18 @@
 	<h1>주간 리뷰</h1>
 		<div class="container p-3 my-3 bg-primary text-white">
 		<div class="row">
-		<div class="col-4">
-			<a href="userDetail?uname=${weekReview.writer }">
-					<img class="img-thumbnail" style="max-width:100px;" src='displayFile?fileName=${weekReview.us_pf }' alt="not image">
-				</a>
-		<h3>${weekReview.writer }</h3>
-		</div>
-		<div class="col-8">
-			<h1>${weekReview.rev_subject }</h1>
+		<c:choose>
+			<c:when test="${weekReview != null }">
+				<div class="col-4">
+					<a href="userDetail?uname=${weekReview.writer }">
+						<img class="img-thumbnail" style="max-width:100px;" src='displayFile?fileName=${weekReview.us_pf }' alt="not image">
+					</a>
+			<h3>${weekReview.writer }</h3>
+				</div>
+				<div class="col-8">
+					<h1>${weekReview.rev_subject }</h1>
 				<div>
-				${weekReview.content }
+					${weekReview.content }
 				</div>
 					<div data-rno="${weekReview.rno }">
 						<a href='#' id='oriImg' data-toggle='modal' data-target='#myImgModal'>
@@ -81,6 +83,12 @@
 						</a>
 					</div>
 				</div>
+			</c:when>
+			<c:otherwise>
+				<h1>주간 리뷰가 없습니당.</h1>
+			</c:otherwise>
+		</c:choose>
+	
 			</div>
 		</div>
 	</div>
@@ -88,8 +96,9 @@
 	<div class="col-md-4 ">
 		<h3>오늘의 이벤트</h3>
 		
-		${peventing.pevent }
+		<p><b>${peventing.pevent }</b></p>
 		<a href="detail?pno=${peventing.pno }"><img src="displayFile?fileName=${peventing.pevent_file }"></a>
+		
 	</div>
 </div>
 <!-- Page Features -->
