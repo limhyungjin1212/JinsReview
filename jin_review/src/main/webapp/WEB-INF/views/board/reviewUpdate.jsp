@@ -150,7 +150,6 @@
 					var repMod = confirm("수정하시겟씁니까?");
 					
 					if(repMod){
-						
 						var content = $("#up_replytext").val();
 						var rev_subject = $("#up_rev_subject").val();
 						var rate = $("#rate").val();
