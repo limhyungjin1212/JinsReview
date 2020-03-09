@@ -176,9 +176,17 @@
 	</div>
 	<div>
 		<h3>진행하는 이벤트</h3>
-		${detail.pevent }
-		<img src="displayFile?fileName=${detail.pevent_file}">
-		${detail.pevent_info }
+		<c:choose>
+			<c:when test="${detail.pevent != null }">
+				${detail.pevent }
+					<img src="displayFile?fileName=${detail.pevent_file}">
+				${detail.pevent_info }	
+			</c:when>
+			<c:otherwise>
+				<h3>진행중인 이벤트가 없습니다.</h3>
+			</c:otherwise>
+		</c:choose>
+		
 	</div>
 	</div>
 
