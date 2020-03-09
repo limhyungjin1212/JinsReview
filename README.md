@@ -1,5 +1,5 @@
 # JinsReview
-<h1>리뷰로 소통하는 SNS</h1>
+<h3>리뷰로 소통하는 SNS</h3>
 
 <div>
   <h3>테이블 구성(ERD)</h3>
