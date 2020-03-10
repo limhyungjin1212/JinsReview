@@ -231,7 +231,9 @@ public class UserController {
 		model.addAttribute("followList", followList);
 		model.addAttribute("followerList", followerList);
 		
-		
+		//메시지함
+		model.addAttribute("myMessage",us.myMessage(uname));
+		logger.info("마이메세지:"+us.myMessage(uname));
 		
 		return "user/mypage";
 	}
@@ -263,8 +265,7 @@ public class UserController {
 		followerList = us.followerList(uv.getUid());
 		logger.info("followerList=" + followerList);
 		
-		//메시지함
-		model.addAttribute("myMessage",us.myMessage(uname));
+		
 		
 		model.addAttribute("user", uv);
 		logger.info("user="+us.userDetail(uname));
