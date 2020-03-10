@@ -3,6 +3,7 @@ package com.lhj.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
@@ -231,9 +232,13 @@ public class UserController {
 		model.addAttribute("followList", followList);
 		model.addAttribute("followerList", followerList);
 		
+		
+		List<UserVO> myMessageList = new ArrayList();
+		myMessageList = us.myMessage(uname);
 		//메시지함
-		model.addAttribute("myMessage",us.myMessage(uname));
-		logger.info("마이메세지:"+us.myMessage(uname));
+		
+		model.addAttribute("myMessageList",myMessageList);
+		logger.info("마이메세지:"+myMessageList);
 		
 		return "user/mypage";
 	}
@@ -344,12 +349,22 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "message" , method=RequestMethod.POST)
-	public void message(Model model) throws Exception {
-		logger.info("message");
+	public void message(UserVO uv,Model model) throws Exception {
+		logger.info("message"+uv);
 		
+		us.sendMessage(uv);
 		
 		
 	}
 	
-	
+	@RequestMapping(value = "myMessageDetail" , method=RequestMethod.POST)
+	@ResponseBody
+	public List<UserVO> myMessageDetail(String umFrom,Model model) throws Exception {
+		logger.info("message"+umFrom);
+		List<UserVO> myMessageDetailList = new ArrayList();
+		myMessageDetailList = us.myMessageDetailList(umFrom);
+		logger.info("myMessageDetailList"+myMessageDetailList);
+		return myMessageDetailList;
+		
+	}
 }

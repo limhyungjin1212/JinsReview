@@ -97,6 +97,19 @@
 	
 	<!-- 유저 메시지함  -->
 	<select id="myMessage" resultType="com.lhj.model.UserVO">
-		select * from tbl_user tu left join userMessage um on tu.uname = um.umTo where tu.uname=#{uname}
+		select * from (
+			select  um.umFrom,um.umTo,um.umContent,um.umDate,
+				(select user_profile from tbl_user where uname=um.umFrom) as file 
+			from tbl_user tu left join userMessage um on tu.uname = um.umTo where tu.uname=#{uname} order by um.umDate desc) as tum
+			 group by tum.umFrom;
 	</select>
+	
+	<!-- 디테일메시지  -->
+	<select id="myMessageDetailList" resultType="com.lhj.model.UserVO">
+		
+select um.*,tu.user_profile as file from userMessage um left join tbl_user tu on um.umFrom=tu.uname where umFrom=#{umFrom} order by umDate;
+	</select>
+	
+	
+	
 </mapper>

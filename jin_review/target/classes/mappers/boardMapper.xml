@@ -51,11 +51,14 @@
 </sql>
 	
 	<!-- 상세보기  -->
+	<!-- test  -->
 	<select id="boardDetail" resultType="com.lhj.model.BoardVO">
 		<!--리뷰가 없을경우 null값을 0으로 대체하고 평균 평점을 round함수로 반올림한다.  -->
+		<![CDATA[
 		select ifnull(round(avg(rate),1),0) as rate , pbd.*,p.*,count(r.rno) as rcnt 
-			from product_board p left join review r on p.pno=r.pno join product_board_detail pbd on p.pno=pbd.pno
+			from product_board p left join review r on p.pno=r.pno left join product_board_detail pbd on p.pno=pbd.pno
 			where p.pno= #{pno}
+			]]>
 	</select>
 	
 	<!-- 수정  -->
@@ -175,7 +178,7 @@
 	
 	<select id="peventing" resultType="com.lhj.model.BoardVO">
 		<![CDATA[
-		select pno,pevent,pevent_file,pevent_info,pevent_startDay,pevent_endDay  from product_board_detail where pevent_startDay < now() and pevent_endDay > now() group by pno order by rand() limit 1
+		select pno,pevent,pevent_file,pevent_info,pevent_startDay,pevent_endDay from product_board_detail where pevent_startDay < now() and pevent_endDay > now() group by pno order by rand() limit 1
 			]]> 
 	</select>
 

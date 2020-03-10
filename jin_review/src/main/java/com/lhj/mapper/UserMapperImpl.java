@@ -120,9 +120,20 @@ public class UserMapperImpl implements UserMapper{
 	}
 
 	@Override
-	public UserVO myMessage(String uname) throws Exception {
-		UserVO mml =session.selectOne(namespace+".myMessage",uname); 
-		return mml;
+	public List<UserVO> myMessage(String uname) throws Exception {
+		List list = session.selectList(namespace+".myMessage",uname); 
+		return list;
+	}
+
+	@Override
+	public void sendMessage(UserVO uv) throws Exception {
+		session.insert(namespace+".sendMessage",uv);
+	}
+
+	@Override
+	public List<UserVO> myMessageDetailList(String umFrom) throws Exception {
+		List myMessageDetailList = session.selectList(namespace+".myMessageDetailList",umFrom); 
+		return myMessageDetailList;
 	}
 	
 }

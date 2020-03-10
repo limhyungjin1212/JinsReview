@@ -38,13 +38,14 @@
 		<div class="col">
 			<div id="demo" class="collapse">
 				<form action="message" method="post" >
+					<input type="hidden" value="${user.uname }" name="umTo">
 						<div class="form-group">
 						    <label for="messageWriter">보내는 사람</label>
-						    <input type="text" class="form-control" id="messageWriter" value="${login.uname }" readonly>
+						    <input type="text" class="form-control" name="umFrom" id="messageWriter" value="${login.uname }" readonly>
 					  	</div>
 						<div class="form-group">
 						    <label for="messageContent">내용 </label>
-						    <textarea class="form-control" id="messageContent" rows="3"></textarea>
+						    <textarea class="form-control" name="umContent" id="messageContent" rows="3"></textarea>
 					  </div>
 					  <div align="right">
 					  	<input type="submit" class="btn btn-primary" value="보내기">

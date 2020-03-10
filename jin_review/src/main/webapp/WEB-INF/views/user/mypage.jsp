@@ -424,15 +424,40 @@
 			<div class="tab-pane fade" id="nav-message" role="tabpanel"
 				aria-labelledby="nav-message-tab">
 
-
+<h1>메세지함</h1>
 				<div class="row">
-					<h1>메세지함</h1>
 					
-				
-						<div>
-							${myMessage.umTo }
-						</div>	
-				
+					<div class="overflow-auto" style="width:500px; height: 300px;">
+					<table class="table">
+					 <tr>
+					      <th scope="col">#</th>
+					      <th scope="col">First</th>
+					      <th scope="col">Last</th>
+					      <th scope="col">Handle</th>
+  					  </tr>
+					<c:forEach items="${myMessageList }" var="mml">
+							<tr class="mmldetailgo">
+								<td>
+								<c:choose>
+									<c:when test="${mml.file !=null }">
+										<img class='rounded-circle' width="150px;" src="displayFile?fileName=${mml.file }">	
+									</c:when>
+									<c:otherwise>
+										<img class='rounded-circle' width="150px;"  src="resources/image/blankprofile.png">
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td>${mml.umFrom }</td>
+								<td>${mml.umContent }</td>
+								<td>${mml.umDate }</td>
+							</tr>
+					</c:forEach>
+					</table>						
+					</div>
+					
+					<div class="overflow-auto" id="myMessageDetailList" style="width:500px; height: 300px; margin-left: 50px;">
+						
+					</div>
 				</div>
 
 				<div class="row">
@@ -450,19 +475,57 @@
 
 	</div>
 	<script>
-		$("#myrevList")
-				.on(
-						"click",
-						".table button",
-						function() {
-							var rno = $(this).parent().children("input:hidden")
-									.val(); //리뷰의 글번호
+		$("#myrevList").on("click",".table button", function() {
+							var rno = $(this).parent().children("input:hidden").val(); //리뷰의 글번호
 
 							console.log(rno);
-							window
-									.open("reviewUpdate?rno=" + rno + "", "새창",
+							window.open("reviewUpdate?rno=" + rno + "", "새창",
 											"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
 						});
+		
+		$(".mmldetailgo").on("click",function(){
+			
+			var umFrom =$(this).children().eq(1).text();
+			alert(umFrom);
+			
+			$.ajax({
+				url:"myMessageDetail",
+				type:"post",
+				data: {umFrom:umFrom},
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					var str ="";
+					var uf ="";
+					var ut ="";
+					$(data).each(function(index){
+						 uf = this.umFrom;
+						 ut = this.umTo;
+						str +="<div class='alert alert-dark'><div class='row'><div class='col-4'>";
+								if(this.file !=null){
+									str += "<img class='rounded-circle' width='100%' src='displayFile?fileName="+this.file+"'>"
+								} else{
+									str += "<img class='rounded-circle' width='100%'  src='resources/image/blankprofile.png'>"
+								}
+						str += "</div><div class='col-8'><p>"+this.umFrom+"</p>"+
+								"<p>"+this.umContent+"</p>"+
+								"<p>"+this.umDate+"</p></div></div></div>"
+					});
+					str += "<form action='message' method='post'><div class='form-row'><div class='col-10'>"+
+					"<input type='hidden' value='"+uf+"' name='umTo'>"+
+					"<input type='hidden' value='"+ut+"' name='umFrom'>"+
+					"<input type='text' class='form-control' name='umContent'></div>"+
+					"<div class='col-auto'><input type='submit' class='btn btn-primary'></div></div></form>";
+					
+					$("#myMessageDetailList").html(str);
+					$("#myMessageDetailList").scrollTop($("#myMessageDetailList")[0].scrollHeight);
+					
+				}
+				
+			});
+			
+			
+		});
 	</script>
 
 </body>
