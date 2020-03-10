@@ -126,6 +126,10 @@
 				<a class="nav-item nav-link"
 					id="nav-follow-tab" data-toggle="tab" href="#nav-follow" role="tab"
 					aria-controls="nav-follow" aria-selected="false">follow</a>
+				<a class="nav-item nav-link"
+					id="nav-message-tab" data-toggle="tab" href="#nav-message" role="tab"
+					aria-controls="nav-message" aria-selected="false">message<span class="badge badge-light">9</span>
+  <span class="sr-only">unread messages</span></a>
 			</div>
 		</nav>
 		<div class="tab-content" id="nav-tabContent">
@@ -416,6 +420,29 @@
 
 			</div>
 			<!-- follow tab end  -->
+			<!-- 메시지탭 시작  -->
+			<div class="tab-pane fade" id="nav-message" role="tabpanel"
+				aria-labelledby="nav-message-tab">
+
+
+				<div class="row">
+					<h1>메세지함</h1>
+					
+				
+						<div>
+							${myMessage.umTo }
+						</div>	
+				
+				</div>
+
+				<div class="row">
+						
+					</div>
+				
+
+
+			</div>
+			<!-- 메세지탭 끝  -->
 		</div>
 
 

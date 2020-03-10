@@ -33,7 +33,25 @@
 			<div id="fbtn">
 				<button type='button' id='followBtn' class='btn btn-primary'>팔로우</button>
 			</div>
+			
 		</div>
+		<div class="col">
+			<div id="demo" class="collapse">
+				<form action="message" method="post" >
+						<div class="form-group">
+						    <label for="messageWriter">보내는 사람</label>
+						    <input type="text" class="form-control" id="messageWriter" value="${login.uname }" readonly>
+					  	</div>
+						<div class="form-group">
+						    <label for="messageContent">내용 </label>
+						    <textarea class="form-control" id="messageContent" rows="3"></textarea>
+					  </div>
+					  <div align="right">
+					  	<input type="submit" class="btn btn-primary" value="보내기">
+					  </div>
+				</form>    
+  				</div>
+  			</div>
 	</div>
 
 
@@ -44,22 +62,19 @@
 						function() {
 
 							function flwlChk() {
-								$(".flwl a")
-										.each(
-												function(index) {
-													var str = "";
-													var flwl = $(this).text();
-													console.log(flwl);
-													if (flwl == "${login.uid}") {
-														str += "<button type='button' id='followDisBtn' class='btn btn-primary'>팔로우해제</button>";
-														$("#fbtn").html(str);
-														return false;
-													} else {
-														str += "<button type='button' id='followBtn' class='btn btn-primary'>팔로우</button>";
-													}
-													
-
-												});
+								$(".flwl a").each(function(index) {
+									var str = "";
+									var flwl = $(this).text();
+									console.log(flwl);
+									if (flwl == "${login.uid}") {
+										str += "<button type='button' id='followDisBtn' class='btn btn-primary'>팔로우해제</button>"+
+										"<button type='button' id='messagewrite' class='btn btn-outline-success' data-toggle='collapse' data-target='#demo'>메세지 작성</button>";
+										$("#fbtn").html(str);
+										return false;
+									} else {
+										str += "<button type='button' id='followBtn' class='btn btn-primary'>팔로우</button>";
+									}
+								});
 							}
 							flwlChk();
 
@@ -95,10 +110,7 @@
 																			.log(data);
 																	if (data == "success") {
 																		alert("팔로우 성공");
-																		$(
-																				"#fbtn")
-																				.append(
-																						"<span class='flwl' id='"+myid+"'>"
+																		$("#fbtn").append("<span class='flwl' id='"+myid+"'>"
 																								+ myid
 																								+ "</span>");
 																		flwlChk();

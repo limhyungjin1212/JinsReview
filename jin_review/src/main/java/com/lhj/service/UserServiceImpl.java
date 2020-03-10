@@ -97,5 +97,10 @@ public class UserServiceImpl implements UserService {
 	public UserVO userPwFind(UserVO uv) throws Exception {
 		return um.userPwFind(uv);
 	}
+
+	@Override
+	public List<UserVO> myMessage(String uname) throws Exception {
+		return um.myMessage(String uname);
+	}
 	
 }

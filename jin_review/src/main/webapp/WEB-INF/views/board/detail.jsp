@@ -428,7 +428,9 @@
 															str2 += "<button type='button' id='btnHelpful' class='btn btn-outline-primary btn-sm' ><small>도움이 돼요</small></button>"	
 																+ "<button type='button' id='btnHelpfuldis' class='btn btn-outline-primary btn-sm' disabled><small>도움 안 돼요</small></button>";
 														}
-														str2 += "</p></li></div></div>";
+														str2 += "</p><blockquote class='blockquote text-right'>"+
+														"<p class='mb-0' id='revDeclare'>신고하기</p></blockquote>"+
+														"</li></div></div>";
 													}
 												});
 								

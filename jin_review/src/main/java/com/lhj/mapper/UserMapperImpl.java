@@ -118,5 +118,11 @@ public class UserMapperImpl implements UserMapper{
 	public UserVO userPwFind(UserVO uv) throws Exception {
 		return session.selectOne(namespace+".userPwFind",uv);
 	}
+
+	@Override
+	public UserVO myMessage(String uname) throws Exception {
+		UserVO mml =session.selectOne(namespace+".myMessage",uname); 
+		return mml;
+	}
 	
 }

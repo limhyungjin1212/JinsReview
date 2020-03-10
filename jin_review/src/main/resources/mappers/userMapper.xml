@@ -90,4 +90,13 @@
 	</select>
 	
 	
+	<!-- 유저 메세지 보내기  -->
+	<insert id="sendMessage">
+		insert into userMessage(umFrom,umTo,umContent) values(#{umFrom},#{umTo},#{umContent})
+	</insert>
+	
+	<!-- 유저 메시지함  -->
+	<select id="myMessage" resultType="com.lhj.model.UserVO">
+		select * from tbl_user tu left join userMessage um on tu.uname = um.umTo where tu.uname=#{uname}
+	</select>
 </mapper>

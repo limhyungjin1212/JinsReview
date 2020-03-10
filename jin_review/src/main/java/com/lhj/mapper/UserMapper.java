@@ -55,4 +55,8 @@ public interface UserMapper {
 	
 	//유저 Pw 찾기
 	public UserVO userPwFind(UserVO uv) throws Exception;
+	
+	//유저 메시지함
+	public UserVO myMessage(String uname) throws Exception;
+	//메시지 보내기
 }

@@ -8,8 +8,40 @@ public class UserVO {
 	private String file;
 	private int ffcnt; //팔로워리스트의 팔로워카운트
 	private int frcnt; //팔로워리스트의 리뷰 카운트
+	private String umFrom,umTo,umContent,unDate; //유저 메시지관련
 	
-	
+
+	public String getUmFrom() {
+		return umFrom;
+	}
+
+	public void setUmFrom(String umFrom) {
+		this.umFrom = umFrom;
+	}
+
+	public String getUmTo() {
+		return umTo;
+	}
+
+	public void setUmTo(String umTo) {
+		this.umTo = umTo;
+	}
+
+	public String getUmContent() {
+		return umContent;
+	}
+
+	public void setUmContent(String umContent) {
+		this.umContent = umContent;
+	}
+
+	public String getUnDate() {
+		return unDate;
+	}
+
+	public void setUnDate(String unDate) {
+		this.unDate = unDate;
+	}
 
 	public int getFrcnt() {
 		return frcnt;
@@ -115,7 +147,8 @@ public class UserVO {
 	public String toString() {
 		return "UserVO [uid=" + uid + ", upw=" + upw + ", uname=" + uname + ", umail=" + umail + ", gender=" + gender
 				+ ", follow=" + follow + ", follower=" + follower + ", regdate=" + regdate + ", user_info=" + user_info
-				+ ", file=" + file + ", ffcnt=" + ffcnt + "]";
+				+ ", file=" + file + ", ffcnt=" + ffcnt + ", frcnt=" + frcnt + ", umFrom=" + umFrom + ", umTo=" + umTo
+				+ ", umContent=" + umContent + ", unDate=" + unDate + "]";
 	}
 	
 }

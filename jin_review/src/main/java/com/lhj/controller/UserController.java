@@ -263,7 +263,8 @@ public class UserController {
 		followerList = us.followerList(uv.getUid());
 		logger.info("followerList=" + followerList);
 		
-		
+		//메시지함
+		model.addAttribute("myMessage",us.myMessage(uname));
 		
 		model.addAttribute("user", uv);
 		logger.info("user="+us.userDetail(uname));
@@ -339,4 +340,15 @@ public class UserController {
 		
 		return "redirect:mypage?uid="+uv.getUid()+"&uname="+uv.getUname()+"";
 	}
+	
+	
+	@RequestMapping(value = "message" , method=RequestMethod.POST)
+	public void message(Model model) throws Exception {
+		logger.info("message");
+		
+		
+		
+	}
+	
+	
 }
