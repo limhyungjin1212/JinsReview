@@ -349,20 +349,28 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "message" , method=RequestMethod.POST)
-	public void message(UserVO uv,Model model) throws Exception {
+	@ResponseBody
+	public ResponseEntity<String> message(UserVO uv) throws Exception {
 		logger.info("message"+uv);
-		
-		us.sendMessage(uv);
-		
+		ResponseEntity<String> entity = null;
+		try {
+			us.sendMessage(uv);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 		
 	}
 	
 	@RequestMapping(value = "myMessageDetail" , method=RequestMethod.POST)
 	@ResponseBody
-	public List<UserVO> myMessageDetail(String umFrom,Model model) throws Exception {
+	public List<UserVO> myMessageDetail(String umFrom,String umTo,Model model) throws Exception {
 		logger.info("message"+umFrom);
 		List<UserVO> myMessageDetailList = new ArrayList();
-		myMessageDetailList = us.myMessageDetailList(umFrom);
+		myMessageDetailList = us.myMessageDetailList(umFrom,umTo);
 		logger.info("myMessageDetailList"+myMessageDetailList);
 		return myMessageDetailList;
 		

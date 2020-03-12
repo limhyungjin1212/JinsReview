@@ -58,5 +58,5 @@ public interface UserService {
 	//메시지 보내기
 	public void sendMessage(UserVO uv) throws Exception;
 	//유저 메시지함 디테일
-	public List<UserVO> myMessageDetailList(String umFrom) throws Exception;	
+	public List<UserVO> myMessageDetailList(String umFrom,String umTo) throws Exception;	
 }

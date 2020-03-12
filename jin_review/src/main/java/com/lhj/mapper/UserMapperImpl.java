@@ -131,8 +131,11 @@ public class UserMapperImpl implements UserMapper{
 	}
 
 	@Override
-	public List<UserVO> myMessageDetailList(String umFrom) throws Exception {
-		List myMessageDetailList = session.selectList(namespace+".myMessageDetailList",umFrom); 
+	public List<UserVO> myMessageDetailList(String umFrom,String umTo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("umFrom", umFrom);
+		paramMap.put("umTo", umTo);
+		List myMessageDetailList = session.selectList(namespace+".myMessageDetailList",paramMap); 
 		return myMessageDetailList;
 	}
 	

@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserVO> myMessageDetailList(String umFrom) throws Exception {
-		return um.myMessageDetailList(umFrom);
+	public List<UserVO> myMessageDetailList(String umFrom,String umTo) throws Exception {
+		return um.myMessageDetailList(umFrom,umTo);
 	}
 }

@@ -106,8 +106,7 @@
 	
 	<!-- 디테일메시지  -->
 	<select id="myMessageDetailList" resultType="com.lhj.model.UserVO">
-		
-select um.*,tu.user_profile as file from userMessage um left join tbl_user tu on um.umFrom=tu.uname where umFrom=#{umFrom} order by umDate;
+		select um.*,tu.user_profile as file from userMessage um left join tbl_user tu on um.umFrom=tu.uname where umFrom in (#{umFrom},#{umTo}) and umTo in(#{umFrom},#{umTo}) order by umDate;
 	</select>
 	
 	

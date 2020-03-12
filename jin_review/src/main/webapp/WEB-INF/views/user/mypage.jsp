@@ -483,49 +483,103 @@
 											"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
 						});
 		
-		$(".mmldetailgo").on("click",function(){
+		
+		
+		$(document).ready(function(){
 			
-			var umFrom =$(this).children().eq(1).text();
-			alert(umFrom);
 			
-			$.ajax({
-				url:"myMessageDetail",
-				type:"post",
-				data: {umFrom:umFrom},
-				dataType:"json",
-				success:function(data){
-					console.log(data);
-					var str ="";
-					var uf ="";
-					var ut ="";
-					$(data).each(function(index){
-						 uf = this.umFrom;
-						 ut = this.umTo;
-						str +="<div class='alert alert-dark'><div class='row'><div class='col-4'>";
-								if(this.file !=null){
-									str += "<img class='rounded-circle' width='100%' src='displayFile?fileName="+this.file+"'>"
-								} else{
-									str += "<img class='rounded-circle' width='100%'  src='resources/image/blankprofile.png'>"
+			var umFrom =$(".mmldetailgo").children().eq(1).text();
+			var umTo = "${user.uname}";
+			
+			
+			function messageBox(){
+				
+				$.ajax({
+					url:"myMessageDetail",
+					type:"post",
+					data: {umFrom:umFrom,umTo:umTo},
+					dataType:"json",
+					success:function(data){
+						console.log(data);
+						var str ="";
+						var uf ="";
+						var ut ="";
+						$(data).each(function(index){
+							 uf = this.umFrom;
+							 ut = this.umTo;
+							if(uf == umFrom){
+								 str +="<div class='alert alert-dark'>";
+									str +="<div class='row'><div class='col-4'>";
+											if(this.file !=null){
+												str += "<img class='rounded-circle' width='100%' src='displayFile?fileName="+this.file+"'>";
+											} else{
+												str += "<img class='rounded-circle' width='100%'  src='resources/image/blankprofile.png'>";
+											}
+									str += "</div><div class='col-8'><p>"+this.umFrom+"</p>"+
+											"<p>"+this.umContent+"</p>"+
+											"<p>"+this.umDate+"</p></div></div></div>";
+								} else if(uf === umTo){
+								 str +="<div class='alert alert-primary'>";
+									str +="<div class='row'><div class='col-8'><p>"+this.umFrom+"</p>"+
+									"<p>"+this.umContent+"</p>"+
+									"<p>"+this.umDate+"</p>";
+											
+									str += "</div><div class='col-4'>";
+										if(this.file !=null){
+											str += "<img class='rounded-circle' width='100%' src='displayFile?fileName="+this.file+"'></div></div></div>";
+										} else{
+											str += "<img class='rounded-circle' width='100%'  src='resources/image/blankprofile.png'></div></div></div>";
+										}
 								}
-						str += "</div><div class='col-8'><p>"+this.umFrom+"</p>"+
-								"<p>"+this.umContent+"</p>"+
-								"<p>"+this.umDate+"</p></div></div></div>"
-					});
-					str += "<form action='message' method='post'><div class='form-row'><div class='col-10'>"+
-					"<input type='hidden' value='"+uf+"' name='umTo'>"+
-					"<input type='hidden' value='"+ut+"' name='umFrom'>"+
-					"<input type='text' class='form-control' name='umContent'></div>"+
-					"<div class='col-auto'><input type='submit' class='btn btn-primary'></div></div></form>";
+						});
+						str += "<form id='sendMessageForm' action='message' method='post'><div class='form-row'><div class='col-10'>"+
+						"<input type='hidden' value='"+umFrom+"' name='umTo'>"+
+						"<input type='hidden' value='"+umTo+"' name='umFrom'>"+
+						"<input type='text' class='form-control' name='umContent'></div>"+
+						"<div class='col-auto'><button type='button' id='sendMessageBtn' class='btn btn-primary'>전송</button></div></div></form>";
+						
+						
+						$("#myMessageDetailList").html(str);
+						$("#myMessageDetailList").scrollTop($("#myMessageDetailList")[0].scrollHeight);
+					}
 					
-					$("#myMessageDetailList").html(str);
-					$("#myMessageDetailList").scrollTop($("#myMessageDetailList")[0].scrollHeight);
-					
-				}
+				});
+			}
+			
+			$(document).on("click",".mmldetailgo",function(){
+				
+				 umFrom =$(this).children().eq(1).text();
+					messageBox();
 				
 			});
 			
 			
+			$(document).on("click","#sendMessageBtn",function(){
+				
+				var smForm = document.getElementById("sendMessageForm");
+				var formData2 = new FormData(smForm);
+				
+				$.ajax({
+					type : 'post',
+					url : 'message',
+					contentType : false,
+					processData : false,
+					dataType : 'text',
+					data : formData2,
+					success : function(result) {
+						if (result == 'success') {
+							messageBox();
+						}
+					},
+					error : function(err) {
+						alert("등록 실패!!");
+					}
+				});
+				
+				
+			});
 		});
+		
 	</script>
 
 </body>
