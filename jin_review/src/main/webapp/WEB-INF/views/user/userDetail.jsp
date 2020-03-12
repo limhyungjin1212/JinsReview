@@ -37,7 +37,7 @@
 		</div>
 		<div class="col">
 			<div id="demo" class="collapse">
-				<form action="message" method="post" >
+				<form id="sendMessageForm" action="message" method="post" >
 					<input type="hidden" value="${user.uname }" name="umTo">
 						<div class="form-group">
 						    <label for="messageWriter">보내는 사람</label>
@@ -48,7 +48,7 @@
 						    <textarea class="form-control" name="umContent" id="messageContent" rows="3"></textarea>
 					  </div>
 					  <div align="right">
-					  	<input type="submit" class="btn btn-primary" value="보내기">
+					  	<button type='button' id='sendMessageBtn' class='btn btn-primary'>전송</button>
 					  </div>
 				</form>    
   				</div>
@@ -58,11 +58,9 @@
 
 
 	<script>
-		$(document)
-				.ready(
-						function() {
+		$(document).ready(function() {
 
-							function flwlChk() {
+			function flwlChk() {
 								$(".flwl a").each(function(index) {
 									var str = "";
 									var flwl = $(this).text();
@@ -79,11 +77,7 @@
 							}
 							flwlChk();
 
-							$(document)
-									.on(
-											"click",
-											"#followBtn",
-											function() {
+							$(document).on("click","#followBtn",function() {
 
 												//유저의 정보
 												var uid = "${user.uid}";
@@ -96,42 +90,38 @@
 													location.href = "login";
 													return false;
 												} else {
-													$
-															.ajax({
-																url : "follow",
-																type : "post",
-																data : {
-																	uid : uid,
-																	myid : myid
-																},
-																dataType : "text",
-																success : function(
-																		data) {
-																	console
-																			.log(data);
-																	if (data == "success") {
-																		alert("팔로우 성공");
-																		$("#fbtn").append("<span class='flwl' id='"+myid+"'>"
-																								+ myid
-																								+ "</span>");
-																		flwlChk();
-																	}
-																},
-																error : function(
-																		err) {
-																	alert("팔로우 실패");
-																}
+													$.ajax({
+														url : "follow",
+														type : "post",
+														data : {
+															uid : uid,
+															myid : myid
+														},
+														dataType : "text",
+														success : function(
+																data) {
+															console
+																	.log(data);
+															if (data == "success") {
+																alert("팔로우 성공");
+																$("#fbtn").append("<span class='flwl' id='"+myid+"'>"
+																						+ myid
+																						+ "</span>");
+																flwlChk();
+															}
+														},
+														error : function(
+																err) {
+															alert("팔로우 실패");
+														}
 
-															});
+												});
 
 												}
 
 											});
 
-							$(document).on(
-									"click",
-									"#followDisBtn",
-									function() {
+							$(document).on("click","#followDisBtn",function() {
 										//유저의 정보
 										var uid = "${user.uid}";
 										//로그인한 유저의 정보
@@ -170,7 +160,36 @@
 
 									});
 
+							
+							$(document).on("click","#sendMessageBtn",function(){
+								
+								var smForm = document.getElementById("sendMessageForm");
+								var formData2 = new FormData(smForm);
+								
+								$.ajax({
+									type : 'post',
+									url : 'message',
+									contentType : false,
+									processData : false,
+									dataType : 'text',
+									data : formData2,
+									success : function(result) {
+										if (result == 'success') {
+											alert("메시지 전송 성공!");
+										}
+									},
+									error : function(err) {
+										alert("등록 실패!!");
+									}
+								});
+								
+							});
+							
+							
 						});
+		
+		
+		
 	</script>
 
 

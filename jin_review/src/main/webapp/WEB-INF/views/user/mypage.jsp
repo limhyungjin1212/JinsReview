@@ -85,7 +85,7 @@
 	<nav id="navbar"
 		class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="main">SemoRE</a>
+			<a class="navbar-brand" href="main">JinsReview</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -430,10 +430,10 @@
 					<div class="overflow-auto" style="width:500px; height: 300px;">
 					<table class="table">
 					 <tr>
-					      <th scope="col">#</th>
-					      <th scope="col">First</th>
-					      <th scope="col">Last</th>
-					      <th scope="col">Handle</th>
+					      <th scope="col"></th>
+					      <th scope="col"></th>
+					      <th scope="col">내용</th>
+					      <th scope="col">보낸 날짜</th>
   					  </tr>
 					<c:forEach items="${myMessageList }" var="mml">
 							<tr class="mmldetailgo">
@@ -547,7 +547,8 @@
 			}
 			
 			$(document).on("click",".mmldetailgo",function(){
-				
+				$(".mmldetailgo").css("backgroundColor","");
+				$(this).css("backgroundColor","#b3d9ff");
 				 umFrom =$(this).children().eq(1).text();
 					messageBox();
 				
@@ -576,8 +577,9 @@
 					}
 				});
 				
-				
 			});
+			
+			
 		});
 		
 	</script>

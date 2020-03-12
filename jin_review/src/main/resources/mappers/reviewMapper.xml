@@ -171,7 +171,7 @@ WHERE NOT EXISTS (
 	<!--1주일간 도움이 가장 많은 리뷰  -->
 	<select id="weekReview" resultType="com.lhj.model.ReviewVO">
 		SELECT r.*,ra.filename as fn ,max(h.helpCount) as helpful ,tu.user_profile as us_pf 
-		FROM review r join (select rno,count(helpfulUserId) as helpCount from helpful group by rno) h on r.rno=h.rno
+		FROM review r join (select rno,count(helpfulUserId) as helpCount from helpful group by rno order by helpCount desc limit 1) h on r.rno=h.rno
 		 left join review_attach ra on r.rno =ra.rno join tbl_user tu on r.writer = tu.uname
 		WHERE r.regdate BETWEEN DATE_ADD(NOW(),INTERVAL -8 week) AND NOW()
 	</select>
