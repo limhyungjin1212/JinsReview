@@ -435,6 +435,7 @@
 					      <th scope="col">내용</th>
 					      <th scope="col">보낸 날짜</th>
   					  </tr>
+  					  <c:set value="${user.uname }" var="uname"></c:set>
 					<c:forEach items="${myMessageList }" var="mml">
 							<tr class="mmldetailgo">
 								<td>
@@ -447,7 +448,17 @@
 									</c:otherwise>
 								</c:choose>
 								</td>
-								<td>${mml.umFrom }</td>
+								<td>
+								
+								<c:choose>
+									<c:when test="${mml.umFrom == uname }">
+										${mml.umTo }	
+									</c:when>
+									<c:otherwise>
+										${mml.umFrom }
+									</c:otherwise>
+								</c:choose>
+								</td>
 								<td>${mml.umContent }</td>
 								<td>${mml.umDate }</td>
 							</tr>
@@ -470,8 +481,8 @@
 			<!-- 메세지탭 끝  -->
 		</div>
 
-
-
+a
+asdfasdf
 
 	</div>
 	<script>
@@ -504,9 +515,33 @@
 						var str ="";
 						var uf ="";
 						var ut ="";
+						var now = new Date();
+
+					      var year= now.getFullYear();
+					      var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+					      var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+					              
+					      var chan_val = year + '-' + mon + '-' + day;
+						console.log(chan_val);
+			
+						var exit = true;
+						var idx = "";
+						
 						$(data).each(function(index){
 							 uf = this.umFrom;
 							 ut = this.umTo;
+							 var umd = this.umDate;
+							var umdday = umd.substr(0,10);
+							var time = umd.substr(11,13);
+							console.log(idx);
+							
+							
+							if(umdday != idx || index == 0){
+								str += "<h5>"+umdday+"</h5>";
+							} 
+							idx = umdday;
+							
+							
 							if(uf == umFrom){
 								 str +="<div class='alert alert-dark'>";
 									str +="<div class='row'><div class='col-4'>";
@@ -517,12 +552,12 @@
 											}
 									str += "</div><div class='col-8'><p>"+this.umFrom+"</p>"+
 											"<p>"+this.umContent+"</p>"+
-											"<p>"+this.umDate+"</p></div></div></div>";
+											"<p>"+time+"</p></div></div></div>";
 								} else if(uf === umTo){
 								 str +="<div class='alert alert-primary'>";
 									str +="<div class='row'><div class='col-8'><p>"+this.umFrom+"</p>"+
 									"<p>"+this.umContent+"</p>"+
-									"<p>"+this.umDate+"</p>";
+									"<p>"+time+"</p>";
 											
 									str += "</div><div class='col-4'>";
 										if(this.file !=null){
@@ -532,6 +567,7 @@
 										}
 								}
 						});
+						
 						str += "<form id='sendMessageForm' action='message' method='post'><div class='form-row'><div class='col-10'>"+
 						"<input type='hidden' value='"+umFrom+"' name='umTo'>"+
 						"<input type='hidden' value='"+umTo+"' name='umFrom'>"+
@@ -549,8 +585,8 @@
 			$(document).on("click",".mmldetailgo",function(){
 				$(".mmldetailgo").css("backgroundColor","");
 				$(this).css("backgroundColor","#b3d9ff");
-				 umFrom =$(this).children().eq(1).text();
-					messageBox();
+				 umFrom =$.trim($(this).children().eq(1).text());
+				messageBox();
 				
 			});
 			

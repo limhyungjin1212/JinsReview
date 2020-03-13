@@ -99,9 +99,9 @@
 	<select id="myMessage" resultType="com.lhj.model.UserVO">
 		select * from (
 			select  um.umFrom,um.umTo,um.umContent,um.umDate,
-				(select user_profile from tbl_user where uname=um.umFrom) as file 
-			from tbl_user tu left join userMessage um on tu.uname = um.umTo where tu.uname=#{uname} order by um.umDate desc) as tum
-			 group by tum.umFrom;
+				(select user_profile from tbl_user where (((um.umFrom=#{uname}) and (uname=um.umTo)) or ((um.umTo=#{uname}) and (uname=um.umFrom)))) as file 
+			from tbl_user tu left join userMessage um on tu.uname = um.umTo where tu.uname=#{uname} or um.umFrom=#{uname} order by um.umDate desc) as tum
+			 group by tum.file;
 	</select>
 	
 	<!-- 디테일메시지  -->
